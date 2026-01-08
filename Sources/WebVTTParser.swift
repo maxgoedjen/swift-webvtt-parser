@@ -448,6 +448,7 @@ struct SettingParser: ParserPrinter, Sendable {
             OneOf {
                 DirectionParser()
                 AlignmentParser()
+                UnannotatedAlignmentParser()
                 PositionParser()
                 SizeParser()
                 LinePercentageParser()
@@ -533,6 +534,15 @@ struct AlignmentParser: ParserPrinter, Sendable {
             Whitespace(.horizontal)
             ":"
             Whitespace(.horizontal)
+            WebVTT.Setting.Alignment.parser()
+        }
+        .map(.case(WebVTT.Setting.align))
+    }
+}
+
+struct UnannotatedAlignmentParser: ParserPrinter, Sendable {
+    var body: some ParserPrinter<Substring, WebVTT.Setting> {
+        ParsePrint {
             WebVTT.Setting.Alignment.parser()
         }
         .map(.case(WebVTT.Setting.align))
