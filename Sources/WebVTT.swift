@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WebVTT: Hashable, Sendable {
+public struct WebVTT: Hashable, Sendable, Codable {
     public let header: Header
     public let elements: [Element]
 
@@ -26,7 +26,7 @@ public struct WebVTT: Hashable, Sendable {
 }
 
 extension WebVTT {
-    public struct Header: Hashable, Sendable {
+    public struct Header: Hashable, Sendable, Codable {
         public let text: String?
         public let metadata: [HeaderMetadata]
 
@@ -38,7 +38,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public struct HeaderMetadata: Hashable, Sendable {
+    public struct HeaderMetadata: Hashable, Sendable, Codable {
         public let key: String
         public let value: String
 
@@ -50,7 +50,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public enum Element: Hashable, Sendable {
+    public enum Element: Hashable, Sendable, Codable {
         case note(Note)
         case style(Style)
         case region(Region)
@@ -60,7 +60,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public struct Note: Hashable, Sendable {
+    public struct Note: Hashable, Sendable, Codable {
         public let text: String
 
         public init(text: String) {
@@ -70,7 +70,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public struct Style: Hashable, Sendable {
+    public struct Style: Hashable, Sendable, Codable {
         public let text: String
 
         public init(text: String) {
@@ -80,7 +80,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public struct Region: Hashable, Sendable {
+    public struct Region: Hashable, Sendable, Codable {
         public let settings: [RegionSetting]
 
         public init(settings: [RegionSetting]) {
@@ -94,7 +94,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public enum RegionSetting: Hashable, Sendable {
+    public enum RegionSetting: Hashable, Sendable, Codable {
         case id(String)
         case lines(Int)
         case widthPercentage(Int)
@@ -105,7 +105,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public struct RegionAnchor: Hashable, Sendable {
+    public struct RegionAnchor: Hashable, Sendable, Codable {
         public let xPercentage: Int
         public let yPercentage: Int
 
@@ -117,7 +117,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public enum RegionScroll: String, Hashable, CaseIterable, Sendable {
+    public enum RegionScroll: String, Hashable, CaseIterable, Sendable, Codable {
         case up // swiftlint:disable:this identifier_name
         case down
         case left
@@ -126,7 +126,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public struct Cue: Hashable, Sendable {
+    public struct Cue: Hashable, Sendable, Codable {
         public let metadata: CueMetadata
         public let payload: CuePayload
 
@@ -146,7 +146,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public struct CueMetadata: Hashable, Sendable {
+    public struct CueMetadata: Hashable, Sendable, Codable {
         public let identifier: String?
         public let timing: Timing
         public let settings: [Setting]
@@ -166,7 +166,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public struct Timing: Hashable, Sendable {
+    public struct Timing: Hashable, Sendable, Codable {
         public let start: Time
         public let end: Time
 
@@ -183,7 +183,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public struct Time: Hashable, Sendable {
+    public struct Time: Hashable, Sendable, Codable {
         public let hours: Int
         public let minutes: Int
         public let seconds: Int
@@ -240,7 +240,7 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public enum Setting: Hashable, Sendable {
+    public enum Setting: Hashable, Sendable, Codable {
         case vertical(Direction)
         case lineNumber(Int)
         case linePercentage(Int)
@@ -249,12 +249,12 @@ extension WebVTT {
         case align(Alignment)
         case region(String)
 
-        public enum Direction: String, Hashable, CaseIterable, Sendable {
+        public enum Direction: String, Hashable, CaseIterable, Sendable, Codable {
             case lr // swiftlint:disable:this identifier_name
             case rl // swiftlint:disable:this identifier_name
         }
 
-        public enum Alignment: String, Hashable, CaseIterable, Sendable {
+        public enum Alignment: String, Hashable, CaseIterable, Sendable, Codable {
             case start
             case left
             case center
@@ -266,8 +266,8 @@ extension WebVTT {
 }
 
 extension WebVTT {
-    public struct CuePayload: Hashable, Sendable {
-        public enum Component: Hashable, Sendable {
+    public struct CuePayload: Hashable, Sendable, Codable {
+        public enum Component: Hashable, Sendable, Codable {
             case plain(text: String)
             case bold(classes: [String] = [], children: [Component])
             case italic(classes: [String] = [], children: [Component])
